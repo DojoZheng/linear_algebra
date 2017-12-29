@@ -7,7 +7,6 @@ class LinearRegressionTestCase(unittest.TestCase):
     """Test for linear regression project"""
 
     def test_shape(self):
-
         for _ in range(10):
             r,c = np.random.randint(low=1,high=25,size=2)
             matrix = np.random.randint(low=-10,high=10,size=(r,c))
@@ -58,8 +57,8 @@ class LinearRegressionTestCase(unittest.TestCase):
 
             self.assertTrue((dotProduct == dp).all(),'Wrong answer')
 
-        mat1 = np.random.randint(low=-10,high=10,size=(r,5)) 
-        mat2 = np.random.randint(low=-5,high=5,size=(4,c)) 
+        mat1 = np.random.randint(low=-10,high=10,size=(r,5))
+        mat2 = np.random.randint(low=-5,high=5,size=(4,c))
         with self.assertRaises(ValueError,msg="Matrix A\'s column number doesn\'t equal to Matrix b\'s row number"):
         	matxMultiply(mat1.tolist(),mat2.tolist())
 
@@ -130,7 +129,7 @@ class LinearRegressionTestCase(unittest.TestCase):
 
     def test_gj_Solve(self):
 
-        for _ in range(9999):
+        for _ in range(99):
             r = np.random.randint(low=3,high=10)
             A = np.random.randint(low=-10,high=10,size=(r,r))
             b = np.arange(r).reshape((r,1))
@@ -143,7 +142,12 @@ class LinearRegressionTestCase(unittest.TestCase):
                 self.assertNotEqual(x,None,"Matrix A is not singular")
                 self.assertEqual(np.array(x).shape,(r,1),"Expected shape({},1), but got shape{}".format(r,np.array(x).shape))
                 Ax = np.dot(A,np.array(x))
+                # print 'x:',x
+                # print 'Ax:', Ax
+                # print 'b:', b
+                # print 'A:', A
                 loss = np.mean((Ax - b)**2)
+                # print 'loss=', loss
                 self.assertTrue(loss<0.1,"Bad result.")
 
 if __name__ == '__main__':
